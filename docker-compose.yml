@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: productsdb
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  zookeeper:
+    image: wurstmeister/zookeeper
+    ports:
+      - "2181:2181"
+
+  kafka:
+    image: wurstmeister/kafka
+    ports:
+      - "29092:29092"
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENERS: INSIDE://0.0.0.0:9092,OUTSIDE://0.0.0.0:29092
+      KAFKA_ADVERTISED_LISTENERS: INSIDE://kafka:9092,OUTSIDE://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
+      KAFKA_CREATE_TOPICS: "cadastro-produtos:1:1,produtos-persistidos:1:1"
+      KAFKA_LOG_RETENTION_MS: 5000  # Mensagens serão retidas por 5 segundo
+    depends_on:
+      - zookeeper
+
+  api:
+    build: ./api
+    ports:
+      - "8000:8000"
+    depends_on:
+      - kafka
+      - postgres
+    restart: always
+
+  scheduler:
+    build: ./scheduler
+    depends_on:
+      - kafka
+      - api
+    restart: always
+
+volumes:
+  postgres-data:

@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+psycopg2-binary
+sqlalchemy
+pydantic
+asyncpg
+alembic
+greenlet
+kafka-python
+requests

@@ -1,0 +1,5 @@
+# KAFKA_BROKER_URL = "localhost:29092"
+KAFKA_BROKER_URL = "kafka:9092"
+TOPIC_NAME = "cadastro-produtos"
+TRANSFORMED_TOPIC = "produtos-persistidos"
+API_URL = "http://api:8000/products/"
