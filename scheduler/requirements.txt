@@ -7,4 +7,7 @@ asyncpg
 alembic
 greenlet
 kafka-python
+pytest
+pytest-cov
+httpx
 requests

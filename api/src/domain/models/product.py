@@ -1,6 +1,6 @@
 from sqlalchemy import Column, String, JSON
-from src.core.config import Base
 from pydantic import BaseModel
+from src.core.config import Base
 
 class Product(Base):
     __tablename__ = "products"

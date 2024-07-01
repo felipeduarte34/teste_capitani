@@ -11,7 +11,7 @@ def produce_message():
     )
 
     message = {
-        "productId": "123456",
+        "productId": "12345",
         "productName": "Nome do Produto",
         "productDescription": "Descrição do Produto",
         "price": 100.0,

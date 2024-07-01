@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException, BackgroundTasks
 from sqlalchemy.ext.asyncio import AsyncSession
 from src.core.database import get_db
-from src.domain.models.product import Product, ProductSchema
-from src.services.product_service import create_product, get_products
+from src.domain.models.product import ProductSchema
 from src.services.kafka_producer_service import produce_message
+from src.services.product_service import create_product, get_products
 
 router = APIRouter()
 
